@@ -19,9 +19,9 @@ class CardSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 500; $i++) {
             DB::table('cards')->insert([
-                'user_id' => User::inRandomOrder()->first()->id,
+                'user_id' => boolval(mt_rand(0,1)) ? User::inRandomOrder()->first()->id : null,
                 'type_id' => CardType::inRandomOrder()->first()->id,
                 'number' => $faker->numberBetween(100000000000, 9999999999999999),
             ]);
