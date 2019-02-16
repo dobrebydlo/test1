@@ -12,6 +12,7 @@ class Purchase extends Model
         'quantity',
         'price',
         'card_number',
+        'created_at',
     ];
 
     /**
