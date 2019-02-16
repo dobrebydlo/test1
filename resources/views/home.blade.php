@@ -63,11 +63,11 @@
                                     <tbody>
                                         <tr>
                                             <th>Number of Customers</th>
-                                            <td>{{ $card_count }}</td>
+                                            <td>{{ $customer_count }}</td>
                                         </tr>
                                         <tr>
                                             <th>Number of assigned Cards</th>
-                                            <td>{{ $customer_count }}</td>
+                                            <td>{{ $card_count }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
