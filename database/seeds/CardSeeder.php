@@ -23,7 +23,7 @@ class CardSeeder extends Seeder
             DB::table('cards')->insert([
                 'user_id' => boolval(mt_rand(0,1)) ? User::inRandomOrder()->first()->id : null,
                 'type_id' => CardType::inRandomOrder()->first()->id,
-                'number' => $faker->numberBetween(100000000000, 9999999999999999),
+                'number' => $faker->numberBetween(1000000000000000, 9999999999999999),
             ]);
         }
     }
