@@ -14,9 +14,28 @@
                         </div>
                     @endif
 
+
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-8">
+                                <div class="alert">
+                                    <form action="/home" method="get" class="form form-inline">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-2 text-left">
+                                                    <label for="filter">Filter:</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input style="width: 100%;" class="form-text" type="text" name="filter" value="{{ $filter }}" placeholder="Name, surname, or card number">
+                                                </div>
+                                                <div class="col-md-4 text-right">
+                                                    <button class="form-submit" type="submit">Apply filter</button>
+                                                    <button class="form-button" type="button" onclick="javascript:this.form.reset();this.form.submit();">Drop filter</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>

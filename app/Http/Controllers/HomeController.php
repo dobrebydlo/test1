@@ -39,19 +39,20 @@ class HomeController extends Controller
             ->get()
         ;
 
-        $customers = User::where('users.type', 'customer')
-            ->select('users.list_name')
-            ->groupBy('users.id')
-            ->with('cards')
-        ;
+        $customers = User::where('users.type', 'customer')->with('cards');
 
         $filter = request()->get('filter');
         if (!empty($filter)) {
             $customers
-                ->leftJoin('cards', 'cards.user_id', 'users.id')
-                ->whereRaw("`users.name` like '{$filter}%'")
-                ->orWhereRaw("`users.list_name` like '{$filter}%'")
-                ->orWhereRaw("`cards.number` like '{$filter}%'")
+                ->whereRaw("`name` like '{$filter}%'")
+                ->orWhereRaw("`list_name` like '{$filter}%'")
+                ->orWhereIn('id', function($query) use (&$filter) {
+                    $query
+                        ->select('user_id')
+                        ->from('cards')
+                        ->whereRaw("`number` like '{$filter}%'")
+                    ;
+                })
             ;
         }
 
@@ -65,6 +66,7 @@ class HomeController extends Controller
             'turnover_top' => $turnover_top,
             'customers' => $customers,
             'get_params' => $get_params,
+            'filter' => $filter,
         ];
 
         return view('home')->with($data);
