@@ -34,7 +34,7 @@ class HomeController extends Controller
             ->select(['user_id', DB::raw('sum(`amount`) as `turnover`')])
             ->where('created_at', '>', today()->subDays(30))
             ->with('user')
-            ->orderBy('turnover')
+            ->orderBy('turnover', 'desc')
             ->take(10)
             ->get()
         ;
