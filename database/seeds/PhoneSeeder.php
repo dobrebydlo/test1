@@ -16,7 +16,7 @@ class PhoneSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 200; $i++) {
             DB::table('phones')->insert([
                 'number' => $faker->e164PhoneNumber,
             ]);

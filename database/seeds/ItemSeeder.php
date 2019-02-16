@@ -16,7 +16,7 @@ class ItemSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 200; $i++) {
 
             $item = [
                 'name' => rtrim($faker->sentence(mt_rand(1, 3)), '.'),

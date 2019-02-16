@@ -16,7 +16,7 @@ class AddressSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 200; $i++) {
             DB::table('addresses')->insert([
                 'street' => $faker->address,
             ]);
