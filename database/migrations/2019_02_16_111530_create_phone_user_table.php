@@ -14,7 +14,7 @@ class CreatePhoneUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_phone', function (Blueprint $table) {
+        Schema::create('phone_user', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->integer('phone_id')->unsigned();
 
@@ -32,6 +32,6 @@ class CreatePhoneUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_phone');
+        Schema::dropIfExists('phone_user');
     }
 }
