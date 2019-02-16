@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="alert">
-                                    <form action="/home" method="get" class="form form-inline">
+                                    <form action="/home" method="get" class="form form-inline" name="filterForm">
                                         <div class="container-fluid">
                                             <div class="row">
                                                 <div class="col-md-2 text-left">
@@ -30,7 +30,7 @@
                                                 </div>
                                                 <div class="col-md-4 text-right">
                                                     <button class="form-submit" type="submit">Apply filter</button>
-                                                    <button class="form-button" type="button" onclick="javascript:this.form.reset();this.form.submit();">Drop filter</button>
+                                                    <button class="form-button" type="button" onclick="javascript:document.filterForm.filter.value = '';document.filterForm.submit();">Drop filter</button>
                                                 </div>
                                             </div>
                                         </div>
