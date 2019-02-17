@@ -1,5 +1,31 @@
 # Test task
 
+Create a database structure and core parts of a simple application for customer database management and customer purchasing behaviour.
+
+* The database contains information about the Customer (Name, Surname, Address, Email, Telephone, Registration date) and his Loyalty Cards (card number, card type - temporary/basic).
+* Cards are pre-created in the database and then assigned to customers. Each Card has just one owner.
+* In addition, individual purchases are recorded. Each purchase contains information about the used Loyalty Card, Total price, Date of purchase and a List of purchased items that contains information about the Purchased goods, the Number of items and the Price per item.
+
+## What must be implemented
+
+1. Create a database data model (such as ER diagram), create SQL database (such as MySQL, PostgreSQL)
+2. Implement parts of the application that are necessary to fulfill the following tasks:
+	a) Implement the Customer Registration Interface (Registration form must include all customer data + Loyalty Card assignment)
+	b) Implement the Customer Tracking Interface by: Name, Surname and Card number
+3. Create Reports:
+	a) Number of Customers
+	b) Number of assigned Cards
+	c) Top 10 Customers by turnover in the last 30 days
+
+## Requirements
+
+* Server part should be implemented in PHP 7.x
+* Respect the MVC Design Pattern (if other, please state the reasons)
+* Respect the OOP principles
+* Created forms should have input data validation implemented on the server side.
+* The application draft contains only the basic parts, there is no need to solve complete functionality in a deep detail. Focus on the features you find important. The estimated implementation time is about 0.5 MD.
+* An essential part of your solution is a brief description of the application draft and implementation steps.
+
 ## Working example online
 
 * Go to https://test1.melnikoff.ru/
@@ -45,6 +71,8 @@
 16. Added automatically generated EER Diagram.
 17. Wrote this detailed list.
 18. Made some more changes and fixes...
+19. Suddenly realized that one purchase may contain more than one kind of items.
+20. Solved the problem.
 
 ## Contact me
 

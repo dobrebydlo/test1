@@ -14,7 +14,7 @@ class AddCardIdToPurchasesTable extends Migration
     public function up()
     {
         Schema::table('purchases', function (Blueprint $table) {
-            $table->char('card_number', 16)->nullable()->after('amount');
+            $table->char('card_number', 16)->nullable()->after('user_id');
             $table->foreign('card_number')->references('number')->on('cards')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }

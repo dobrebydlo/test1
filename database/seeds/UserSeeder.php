@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin'),
         ]);
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 200; $i++) {
             $user = User::firstOrCreate([
                 'first_name' => $faker->firstName,
                 'last_name' => $faker->lastName,

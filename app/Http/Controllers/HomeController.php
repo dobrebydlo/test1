@@ -40,9 +40,10 @@ class HomeController extends Controller
             $customer_count = User::where('type', 'customer')->count();
             $card_count = Card::whereNotNull('user_id')->count();
             $turnover_top = Purchase
-                ::groupBy('user_id')
-                ->select(['user_id', DB::raw('sum(`amount`) as `turnover`')])
-                ->where('created_at', '>', today()->subDays(30))
+                ::join('item_purchase', 'item_purchase.purchase_id', 'purchases.id')
+                ->groupBy('purchases.user_id')
+                ->select('purchases.user_id', DB::raw('sum(`item_purchase`.`amount`) as `turnover`'))
+                ->where('purchases.created_at', '>', today()->subDays(30))
                 ->with('user')
                 ->orderBy('turnover', 'desc')
                 ->take(10)
