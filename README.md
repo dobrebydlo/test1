@@ -46,3 +46,9 @@
 17. Wrote this detailed list.
 18. Made some more changes and fixes...
 
+## Contact me
+
+* +420 720 134 550 (Phone, SMS, Viber, Whatsapp)
+* alex@melnikoff.ru
+* dobrebydlo@telegram
+* callmelnikoff@skype
