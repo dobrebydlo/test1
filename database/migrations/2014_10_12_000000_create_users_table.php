@@ -19,10 +19,8 @@ class CreateUsersTable extends Migration
             $table->enum('type', ['customer', 'admin'])->default('customer');
             $table->char('first_name', 127)->nullable();
             $table->char('last_name', 127)->nullable();
-//            $table->char('name', 255)->storedAs("CONCAT(COALESCE(CONCAT(`first_name`, ' '), ''), COALESCE(`last_name`, ''))");
-//            $table->char('list_name', 255)->storedAs("CONCAT(COALESCE(CONCAT(`last_name`, ' '), ''), COALESCE(`first_name`, ''))");
-            $table->char('name', 255)->nullable();
-            $table->char('list_name', 255)->nullable();
+            $table->char('name', 255)->storedAs("CONCAT(COALESCE(CONCAT(`first_name`, ' '), ''), COALESCE(`last_name`, ''))");
+            $table->char('list_name', 255)->storedAs("CONCAT(COALESCE(CONCAT(`last_name`, ' '), ''), COALESCE(`first_name`, ''))");
             $table->char('email', 255)->nullable();
             $table->dateTime('email_verified_at')->nullable();
             $table->char('password', 60)->nullable();
