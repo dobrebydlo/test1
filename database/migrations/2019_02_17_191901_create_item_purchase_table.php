@@ -19,7 +19,8 @@ class CreateItemPurchaseTable extends Migration
             $table->integer('item_id')->unsigned();
             $table->integer('quantity')->unsigned()->default(1);
             $table->decimal('price', '8', '2')->unsigned();
-            $table->decimal('amount', '12', '2')->storedAs("`price` * `quantity`");
+//            $table->decimal('amount', '12', '2')->storedAs("`price` * `quantity`");
+            $table->decimal('amount', '12', '2')->deafult('0');
 
             $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreign('item_id')->references('id')->on('items')->onDelete('CASCADE')->onUpdate('CASCADE');

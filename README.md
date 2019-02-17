@@ -49,7 +49,7 @@ Create a database structure and core parts of a simple application for customer 
 * Models: app/*.php
 * Controllers: app/Http/Controllers
 * Views: resources/views
-* ER Diagrams: EER Diagram.mwb and EER Diagram.pdf in the root folder
+* ER Diagram: Schema.mwb and "EER Diagram.pdf" in the root folder
 
 ## Timeline
 
