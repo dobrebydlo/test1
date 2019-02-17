@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-
+                    @if($is_admin)
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-8">
@@ -91,7 +91,28 @@
                             </div>
                         </div>
                     </div>
-
+                    @else
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <td>{{ $user->name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>email</th>
+                                    <td>{{ $user->email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Cards</th>
+                                    <td>{{ $cards->isNotEmpty() ? $cards->implode(', ') : 'None' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Purchases</th>
+                                    <td>{{ $purchase_count }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
             </div>
         </div>

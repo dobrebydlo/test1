@@ -27,47 +27,64 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $customer_count = User::where('type', 'customer')->count();
-        $card_count = Card::whereNotNull('user_id')->count();
-        $turnover_top = Purchase
-            ::groupBy('user_id')
-            ->select(['user_id', DB::raw('sum(`amount`) as `turnover`')])
-            ->where('created_at', '>', today()->subDays(30))
-            ->with('user')
-            ->orderBy('turnover', 'desc')
-            ->take(10)
-            ->get()
-        ;
-
-        $customers = User::where('users.type', 'customer')->with('cards');
-
-        $filter = request()->get('filter');
-        if (!empty($filter)) {
-            $customers
-                ->where('name', 'like', "{$filter}%")
-                ->orWhere('list_name', 'like', "{$filter}%")
-                ->orWhereIn('id', function($query) use (&$filter) {
-                    $query
-                        ->select('user_id')
-                        ->from('cards')
-                        ->where('number', 'like', "{$filter}%")
-                    ;
-                })
-            ;
-        }
-
-        $customers = $customers->paginate();
-
-        $get_params = collect(request()->query())->except(['page'])->toArray();
+        $user = auth()->user();
+        $is_admin = $user->type === 'admin';
 
         $data = [
-            'customer_count' => $customer_count,
-            'card_count' => $card_count,
-            'turnover_top' => $turnover_top,
-            'customers' => $customers,
-            'get_params' => $get_params,
-            'filter' => $filter,
+            'user' => $user,
+            'is_admin' => $is_admin,
         ];
+
+
+        if ($is_admin) {
+            $customer_count = User::where('type', 'customer')->count();
+            $card_count = Card::whereNotNull('user_id')->count();
+            $turnover_top = Purchase
+                ::groupBy('user_id')
+                ->select(['user_id', DB::raw('sum(`amount`) as `turnover`')])
+                ->where('created_at', '>', today()->subDays(30))
+                ->with('user')
+                ->orderBy('turnover', 'desc')
+                ->take(10)
+                ->get()
+            ;
+
+            $customers = User::where('users.type', 'customer')->with('cards');
+
+            $filter = request()->get('filter');
+            if (!empty($filter)) {
+                $customers
+                    ->where('name', 'like', "{$filter}%")
+                    ->orWhere('list_name', 'like', "{$filter}%")
+                    ->orWhereIn('id', function($query) use (&$filter) {
+                        $query
+                            ->select('user_id')
+                            ->from('cards')
+                            ->where('number', 'like', "{$filter}%")
+                        ;
+                    })
+                ;
+            }
+
+            $customers = $customers->paginate();
+
+            $get_params = collect(request()->query())->except(['page'])->toArray();
+
+            $data = array_merge($data, [
+                'customer_count' => $customer_count,
+                'card_count' => $card_count,
+                'turnover_top' => $turnover_top,
+                'customers' => $customers,
+                'get_params' => $get_params,
+                'filter' => $filter,
+            ]);
+
+        } else {
+            $data = array_merge($data, [
+                'cards' => $user->cards()->pluck('number'),
+                'purchase_count' => intval($user->purchases()->count()),
+            ]);
+        }
 
         return view('home')->with($data);
     }
