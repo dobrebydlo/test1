@@ -2,11 +2,14 @@
 
 ## Installation
 
+0. Clone the repo =)
 1. Create .env file in project root folder and fill DB params (use .env.example)
-2. Run composer update (the project depends on a number of libraries)
-3. Run php artisan migrate --seed (create database structure and seed the models)
-4. Make sure the folders bootstrap/cache, storage, storage/* are writable by php
-5. Set virtual host web root to project_root/public
+2. Keep APP_ENV=local and APP_DEBUG=true to have DebugBar enabled
+3. Run composer update (the project depends on a number of libraries)
+4. Run php artisan key:generate (it won't work without an app key)
+5. Run php artisan migrate --seed (create database structure and seed the models, seeding will take some time)
+6. Make sure the folders bootstrap/cache, storage, storage/* are writable by php
+7. Set virtual host web root to project_root/public
 
 ## Where is everything
 

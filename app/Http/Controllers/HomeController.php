@@ -44,13 +44,13 @@ class HomeController extends Controller
         $filter = request()->get('filter');
         if (!empty($filter)) {
             $customers
-                ->whereRaw("`name` like '{$filter}%'")
-                ->orWhereRaw("`list_name` like '{$filter}%'")
+                ->where('name', 'like', "{$filter}%")
+                ->orWhere('list_name', 'like', "{$filter}%")
                 ->orWhereIn('id', function($query) use (&$filter) {
                     $query
                         ->select('user_id')
                         ->from('cards')
-                        ->whereRaw("`number` like '{$filter}%'")
+                        ->where('number', 'like', "{$filter}%")
                     ;
                 })
             ;
