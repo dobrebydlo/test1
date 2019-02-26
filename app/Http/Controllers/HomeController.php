@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Card;
 use App\Purchase;
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -24,45 +23,43 @@ class HomeController extends Controller
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
+     * @see \App\User::scopeFilteredBy()
      */
     public function index()
     {
+        // Total customer count
         $customer_count = User::where('type', 'customer')->count();
-        $card_count = Card::whereNotNull('user_id')->count();
+
+        // Assigned card count
+        $assigned_card_count = Card::whereNotNull('user_id')->count();
+
+        // Top 10 customers by turnover
         $turnover_top = Purchase
-            ::groupBy('user_id')
+            ::with('user')
+            ->groupBy('user_id')
             ->select(['user_id', DB::raw('sum(`amount`) as `turnover`')])
             ->where('created_at', '>', today()->subDays(30))
-            ->with('user')
             ->orderBy('turnover', 'desc')
             ->take(10)
-            ->get()
-        ;
+            ->get();
 
-        $customers = User::where('users.type', 'customer')->with('cards');
-
+        // Extract filter string from the request
         $filter = request()->get('filter');
-        if (!empty($filter)) {
-            $customers
-                ->whereRaw("`name` like '{$filter}%'")
-                ->orWhereRaw("`list_name` like '{$filter}%'")
-                ->orWhereIn('id', function($query) use (&$filter) {
-                    $query
-                        ->select('user_id')
-                        ->from('cards')
-                        ->whereRaw("`number` like '{$filter}%'")
-                    ;
-                })
-            ;
-        }
 
-        $customers = $customers->paginate();
+        // Customer listing with pagination and filter
+        $customers = User
+            ::with('cards')
+            ->where('type', 'customer')
+            ->filteredBy($filter) // See \App\User::scopeFilteredBy()
+            ->paginate();
 
+        // Prepare get params for the pagination
         $get_params = collect(request()->query())->except(['page'])->toArray();
 
+        // Put together all data for the layout
         $data = [
             'customer_count' => $customer_count,
-            'card_count' => $card_count,
+            'assigned_card_count' => $assigned_card_count,
             'turnover_top' => $turnover_top,
             'customers' => $customers,
             'get_params' => $get_params,
