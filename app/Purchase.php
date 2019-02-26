@@ -8,9 +8,6 @@ class Purchase extends Model
 {
     protected $fillable = [
         'user_id',
-        'item_id',
-        'quantity',
-        'price',
         'card_number',
         'created_at',
     ];
@@ -23,12 +20,9 @@ class Purchase extends Model
         return $this->belongsTo(Card::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function item()
+    public function items()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsToMany(Item::class)->using(ItemPurchase::class);
     }
 
     /**

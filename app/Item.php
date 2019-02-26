@@ -12,11 +12,8 @@ class Item extends Model
         'price',
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function purchases()
     {
-        return $this->hasMany(Purchase::class);
+        return $this->belongsToMany(Purchase::class)->using(ItemPurchase::class);
     }
 }
