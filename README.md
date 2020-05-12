@@ -33,7 +33,7 @@ Create a database structure and core parts of a simple application for customer 
 
 ## Installation
 
-1. Clone the repo =)
+1. Clone the repo
 2. Create .env file in project root folder and fill DB params (use .env.example)
 3. Keep APP_ENV=local and APP_DEBUG=true to have DebugBar enabled
 4. Run composer update (Laravel depends on a number of libraries)
@@ -59,27 +59,27 @@ Create a database structure and core parts of a simple application for customer 
 4. Prepared migrations for all used models.
 5. Started working on models.
 6. Realized that there is a missing relationship between Purchase and Card, fixed it.
-7. Inspected Laravel's authentication mechanism, found it compatible with what I need.
-8. Modified the registration form and validator so that they complied with the requirements.
-9. Decided not to pay attention to proper phone number extraction and validation even though I have my own good implementation.
-10. Finished with models, started working on seeders.
-11. Got an unexpected call from the manager (I still have a job) and had to spend some 20 minutes for an urgent task.
-12. Finished the seeders and made sure they worked properly.
-13. Implemented the interface (both controller and view) but failed to properly implement text filtering from the first try.
-14. Committed the changes as is because it was already time to finish task.
-15. Implemented text filter properly and committed the changes.
-16. Added automatically generated EER Diagram.
-17. Wrote this detailed list.
-18. Made some more changes and fixes.
-19. Suddenly realized that one purchase may contain more than one kind of items.
-20. Solved the problem.
+7. Inspected Laravel's authentication mechanism, found it compatible with what I needed.
+8. Modified the registration form and the validator so that they complied with the requirements.
+9. Decided not to pay attention to proper phone number extraction and validation even though I had my own good implementation.
+10. Finished with the models, started working on seeders.
+11. Finished the seeders and made sure they worked properly.
+12. Implemented the interface (both controller and view) but failed to properly implement text filtering from the first try.
+13. Committed the changes as is because it was almost time to finish.
+14. Implemented text filter properly and committed the changes.
+15. Added automatically generated EER Diagram.
+16. Wrote this detailed list.
+17. Made some more changes and fixes.
+18. Suddenly realized that one purchase may contain more than one kind of items.
+19. Solved the problem.
+20. Finally, fixed the turnover top calculation logic.
 
-## The feedback from the potential employer
+## Feedback from potential employer
 
 1. The only 100% working solution covering all parts of the task.
-2. The only candidate who paid attention to documenting the task and preparing the diagram.
+2. The only candidate who paid attention to documenting the solution and prepared the ER diagram.
 3. The cleanest solution with obvious structure and commented code.
-4. Existing solutions and prebuilt elements were used where possible, no bike invented.
+4. Existing solutions and prebuilt elements were used where possible.
 5. Job offer made.
 
 ## Contact me
