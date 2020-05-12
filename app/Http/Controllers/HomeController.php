@@ -65,7 +65,8 @@ class HomeController extends Controller
         // Top 10 customers by turnover
         $turnover_top = Purchase
             ::with('user')
-            ->groupBy('user_id')
+            ->join('item_purchase', 'item_purchase.purchase_id', 'purchases.id')
+            ->groupBy(['user_id'])
             ->select(['user_id', DB::raw('sum(`amount`) as `turnover`')])
             ->where('created_at', '>', today()->subDays(30))
             ->orderBy('turnover', 'desc')
