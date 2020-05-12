@@ -51,28 +51,36 @@ Create a database structure and core parts of a simple application for customer 
 * Views: resources/views
 * ER Diagram: Schema.mwb and "EER Diagram.pdf" in the root folder
 
-## Timeline
+## Steps taken to solve the task
 
-1. At 12:00 I read the document and decided to use Laravel as it suits the task best.
-2. Set up virtual host, created database, set up clean Laravel installation.
-3. Drawn a ER diagram by hand on a piece of paper.
+1. Read the document and decided to use Laravel as it suits the task best.
+2. Set up virtual host, created database, brought up clean Laravel installation.
+3. Drawn an ER diagram by hand on paper.
 4. Prepared migrations for all used models.
 5. Started working on models.
 6. Realized that there is a missing relationship between Purchase and Card, fixed it.
-7. Inspected Laravel's authentification mechanism, found it compatible with what I need.
+7. Inspected Laravel's authentication mechanism, found it compatible with what I need.
 8. Modified the registration form and validator so that they complied with the requirements.
 9. Decided not to pay attention to proper phone number extraction and validation even though I have my own good implementation.
 10. Finished with models, started working on seeders.
-11. Got an unexpected call from manager (I still have a job) and had to spend some 20 minutes for an urgent task.
-12. Finished the seeders and made sure they work properly.
+11. Got an unexpected call from the manager (I still have a job) and had to spend some 20 minutes for an urgent task.
+12. Finished the seeders and made sure they worked properly.
 13. Implemented the interface (both controller and view) but failed to properly implement text filtering from the first try.
-14. Committed the changes as is because it was already 15:58.
-15. Implemented text filter the proper way and committed changes.
+14. Committed the changes as is because it was already time to finish task.
+15. Implemented text filter properly and committed the changes.
 16. Added automatically generated EER Diagram.
 17. Wrote this detailed list.
-18. Made some more changes and fixes...
+18. Made some more changes and fixes.
 19. Suddenly realized that one purchase may contain more than one kind of items.
 20. Solved the problem.
+
+## The feedback from the potential employer
+
+1. The only 100% working solution covering all parts of the task.
+2. The only candidate who paid attention to documenting the task and preparing the diagram.
+3. The cleanest solution with obvious structure and commented code.
+4. Existing solutions and prebuilt elements were used where possible, no bike invented.
+5. Job offer made.
 
 ## Contact me
 
