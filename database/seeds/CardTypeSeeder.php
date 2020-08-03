@@ -1,9 +1,14 @@
 <?php
+
 namespace Seeds;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class CardTypeSeeder
+ * @package Seeds
+ */
 class CardTypeSeeder extends Seeder
 {
     /**
@@ -14,9 +19,11 @@ class CardTypeSeeder extends Seeder
     public function run()
     {
         foreach (['temporary', 'basic'] as $type) {
-            DB::table('card_types')->insert([
-                'name' => $type,
-            ]);
+            DB::table('card_types')->insert(
+                [
+                    'name' => $type,
+                ]
+            );
         }
         //
     }

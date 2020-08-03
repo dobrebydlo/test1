@@ -14,17 +14,32 @@ class CreateCardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cards', function (Blueprint $table) {
-            $table->char('number', 16)->primary();
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->integer('type_id')->unsigned();
-            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->nullable();
-            $table->dateTime('deleted_at')->nullable();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->foreign('type_id')->references('id')->on('card_types')->onDelete('CASCADE')->onUpdate('CASCADE');
-        });
+        Schema::create(
+            'cards',
+            function (Blueprint $table) {
+                $table->char('number', 16)->primary();
+                $table->integer('user_id')->unsigned()->nullable();
+                $table->integer('type_id')->unsigned();
+                $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+                $table
+                    ->dateTime('updated_at')
+                    ->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))
+                    ->nullable();
+                $table->dateTime('deleted_at')->nullable();
+                $table
+                    ->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('CASCADE')
+                    ->onUpdate('CASCADE');
+                $table
+                    ->foreign('type_id')
+                    ->references('id')
+                    ->on('card_types')
+                    ->onDelete('CASCADE')
+                    ->onUpdate('CASCADE');
+            }
+        );
     }
 
     /**

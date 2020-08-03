@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Card;
@@ -7,9 +9,12 @@ use App\Purchase;
 use App\User;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class HomeController
+ * @package App\Http\Controllers
+ */
 class HomeController extends Controller
 {
-
     /**
      * @var array
      */
@@ -31,19 +36,21 @@ class HomeController extends Controller
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
-     * @see \App\User::scopeFilteredBy()
      */
     public function index()
     {
+        /** @var User $user */
         $user = auth()->user();
-        $is_admin = $user->type === 'admin';
+        $isAdmin = $user->isAdmin();
 
         $data = [
             'user' => $user,
-            'is_admin' => $is_admin,
+            'isAdmin' => $isAdmin,
         ];
 
-        return $is_admin ? $this->adminIndex($user, $data) : $this->customerIndex($user, $data);
+        return $isAdmin
+            ? $this->adminIndex($user, $data)
+            : $this->customerIndex($user, $data);
     }
 
     /**
@@ -55,15 +62,14 @@ class HomeController extends Controller
      */
     protected function adminIndex(User $user, array $data = [])
     {
-
         // Total customer count
-        $customer_count = User::where('type', 'customer')->count();
+        $customerCount = $user->query()->where('type', 'customer')->count();
 
         // Assigned card count
-        $assigned_card_count = Card::whereNotNull('user_id')->count();
+        $assignedCardCount = Card::query()->whereNotNull('user_id')->count();
 
         // Top 10 customers by turnover
-        $turnover_top = Purchase
+        $turnoverTop = Purchase
             ::with('user')
             ->join('item_purchase', 'item_purchase.purchase_id', 'purchases.id')
             ->groupBy(['user_id'])
@@ -78,24 +84,29 @@ class HomeController extends Controller
 
         // Customer listing with pagination and filter
         $customers = User
-            ::with('cards')
+            /** @see \App\User::scopeFilteredBy() */
+            ::filteredBy($filter)
+            ->with('cards')
             ->where('type', 'customer')
-            ->filteredBy($filter)
-            // @see \App\User::scopeFilteredBy()
             ->paginate();
 
         // Prepare get params for the pagination
-        $get_params = collect(request()->query())->except(['page'])->toArray();
+        $getParams = collect(request()->query())
+            ->except(['page'])
+            ->toArray();
 
         // Put together all data for the layout
-        $data = array_merge($data, [
-            'customer_count' => $customer_count,
-            'assigned_card_count' => $assigned_card_count,
-            'turnover_top' => $turnover_top,
-            'customers' => $customers,
-            'get_params' => $get_params,
-            'filter' => $filter,
-        ]);
+        $data = array_merge(
+            $data,
+            [
+                'customerCount' => $customerCount,
+                'assignedCardCount' => $assignedCardCount,
+                'turnoverTop' => $turnoverTop,
+                'customers' => $customers,
+                'getParams' => $getParams,
+                'filter' => $filter,
+            ]
+        );
 
         return $this->getIndexView()->with($data);
     }
@@ -109,11 +120,13 @@ class HomeController extends Controller
      */
     protected function customerIndex(User $user, array $data = [])
     {
-
-        $data = array_merge($data, [
-            'cards' => $user->cards()->pluck('number'),
-            'purchase_count' => intval($user->purchases()->count()),
-        ]);
+        $data = array_merge(
+            $data,
+            [
+                'cards' => $user->cards()->pluck('number'),
+                'purchaseCount' => intval($user->purchases()->count()),
+            ]
+        );
 
         return $this->getIndexView()->with($data);
     }
@@ -125,5 +138,4 @@ class HomeController extends Controller
     {
         return view($this->views['index']);
     }
-
 }

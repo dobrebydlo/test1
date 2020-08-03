@@ -1,14 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
+/**
+ * Class Phone
+ * @package App
+ * @property string $number
+ * @property Collection $users
+ */
 class Phone extends Model
 {
-
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'number',
     ];
@@ -20,5 +34,5 @@ class Phone extends Model
     {
         return $this->belongsToMany(User::class);
     }
-
 }
+

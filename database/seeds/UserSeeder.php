@@ -1,4 +1,5 @@
 <?php
+
 namespace Seeds;
 
 use App\Address;
@@ -9,6 +10,10 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+/**
+ * Class UserSeeder
+ * @package Seeds
+ */
 class UserSeeder extends Seeder
 {
     /**
@@ -20,32 +25,35 @@ class UserSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        User::firstOrCreate([
-            'type' => 'admin',
-            'email' => 'admin@admin.com',
-        ], [
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'email_verified_at' => now(),
-            'password' => Hash::make('admin'),
-        ]);
+        User::query()->firstOrCreate(
+            [
+                'type' => 'admin',
+                'email' => 'admin@admin.com',
+            ],
+            [
+                'first_name' => 'John',
+                'last_name' => 'Doe',
+                'email_verified_at' => now(),
+                'password' => Hash::make('admin'),
+            ]
+        );
 
         for ($i = 0; $i < 200; $i++) {
-            $user = User::firstOrCreate([
-                'first_name' => $faker->firstName,
-                'last_name' => $faker->lastName,
-                'email' => $faker->unique()->safeEmail,
-                'email_verified_at' => now(),
-                'password' => Hash::make('password'),
-                'remember_token' => Str::random(10),
-            ]);
+            $user = User::query()->firstOrCreate(
+                [
+                    'first_name' => $faker->firstName,
+                    'last_name' => $faker->lastName,
+                    'email' => $faker->unique()->safeEmail,
+                    'email_verified_at' => now(),
+                    'password' => Hash::make('password'),
+                    'remember_token' => Str::random(10),
+                ]
+            );
 
             if ($user instanceof User) {
-                $user->addresses()->attach(Address::inRandomOrder()->first()->id);
-                $user->phones()->attach(Phone::inRandomOrder()->first()->id);
+                $user->addresses()->attach(Address::query()->inRandomOrder()->first()->id);
+                $user->phones()->attach(Phone::query()->inRandomOrder()->first()->id);
             }
-
         }
-
     }
 }

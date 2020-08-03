@@ -1,10 +1,15 @@
 <?php
+
 namespace Seeds;
 
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class PhoneSeeder
+ * @package Seeds
+ */
 class PhoneSeeder extends Seeder
 {
     /**
@@ -17,9 +22,11 @@ class PhoneSeeder extends Seeder
         $faker = Factory::create();
 
         for ($i = 0; $i < 200; $i++) {
-            DB::table('phones')->insert([
-                'number' => $faker->e164PhoneNumber,
-            ]);
+            DB::table('phones')->insert(
+                [
+                    'number' => $faker->e164PhoneNumber,
+                ]
+            );
         }
     }
 }

@@ -1,10 +1,15 @@
 <?php
+
 namespace Seeds;
 
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class ItemSeeder
+ * @package Seeds
+ */
 class ItemSeeder extends Seeder
 {
     /**
@@ -17,7 +22,6 @@ class ItemSeeder extends Seeder
         $faker = Factory::create();
 
         for ($i = 0; $i < 200; $i++) {
-
             $item = [
                 'name' => rtrim($faker->sentence(mt_rand(1, 3)), '.'),
                 'price' => $faker->numberBetween(10, 1000),

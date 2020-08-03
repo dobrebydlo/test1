@@ -13,10 +13,13 @@ class CreatePhonesTable extends Migration
      */
     public function up()
     {
-        Schema::create('phones', function (Blueprint $table) {
-            $table->increments('id');
-            $table->char('number', 20)->unique();
-        });
+        Schema::create(
+            'phones',
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->char('number', 20)->unique();
+            }
+        );
     }
 
     /**

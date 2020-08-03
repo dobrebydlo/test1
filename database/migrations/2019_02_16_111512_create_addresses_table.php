@@ -13,11 +13,14 @@ class CreateAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('addresses', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('street')->unique();
-            // TODO: Drop unique street index when more address details added
-        });
+        Schema::create(
+            'addresses',
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('street')->unique();
+                // TODO: Drop unique street index when more address details added
+            }
+        );
     }
 
     /**

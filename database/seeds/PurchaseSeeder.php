@@ -1,4 +1,5 @@
 <?php
+
 namespace Seeds;
 
 use App\Card;
@@ -8,6 +9,10 @@ use App\User;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
+/**
+ * Class PurchaseSeeder
+ * @package Seeds
+ */
 class PurchaseSeeder extends Seeder
 {
     /**
@@ -20,36 +25,39 @@ class PurchaseSeeder extends Seeder
         $faker = Factory::create();
 
         for ($i = 0; $i < 2000; $i++) {
-
-            $user = User::where('type', 'customer')->inRandomOrder()->first();
+            $user = User::query()
+                ->where('type', 'customer')
+                ->inRandomOrder()
+                ->first();
 
             if (boolval(mt_rand(0, 1))) {
                 $card = $user->cards()->inRandomOrder()->first();
                 $card_number = ($card instanceof Card) ? $card->number : null;
             }
 
-            $purchase = Purchase::firstOrCreate([
-                'user_id' => $user->id,
-                'card_number' => isset($card_number) ? $card_number : null,
-                'created_at' => $faker->dateTimeBetween('-3 months', 'now'),
-            ]);
+            $purchase = Purchase::query()->firstOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'card_number' => isset($card_number) ? $card_number : null,
+                    'created_at' => $faker->dateTimeBetween('-3 months', 'now'),
+                ]
+            );
 
             if ($purchase instanceof Purchase) {
-
                 $item_count = mt_rand(1, 5);
-                Item::inRandomOrder()
+                Item::query()
+                    ->inRandomOrder()
                     ->take($item_count)
                     ->pluck('price', 'id')
-                    ->each(function($price, $id) use (&$purchase) {
-
-                        $attributes = [
-                            'price' => $price,
-                            'quantity' => mt_rand(1, 5),
-                        ];
-
-                        $purchase->items()->attach($id, $attributes);
-                    })
-                ;
+                    ->each(
+                        function ($price, $id) use (&$purchase) {
+                            $attributes = [
+                                'price' => $price,
+                                'quantity' => mt_rand(1, 5),
+                            ];
+                            $purchase->items()->attach($id, $attributes);
+                        }
+                    );
             }
         }
     }

@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    @if($is_admin)
+                    @if($isAdmin)
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-8">
@@ -53,7 +53,7 @@
                                         </tbody>
                                     </table>
                                     <div class="text-center">
-                                        {{ $customers->appends(isset($get_params) ? $get_params : request()->query())->render() }}
+                                        {{ $customers->appends(isset($getParams) ? $getParams : request()->query())->render() }}
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -62,11 +62,11 @@
                                         <tbody>
                                             <tr>
                                                 <th>Number of Customers</th>
-                                                <td>{{ $customer_count }}</td>
+                                                <td>{{ $customerCount }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Number of assigned Cards</th>
-                                                <td>{{ $assigned_card_count }}</td>
+                                                <td>{{ $assignedCardCount }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -79,7 +79,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($turnover_top as $record)
+                                            @foreach($turnoverTop as $record)
                                                 <tr>
                                                     <td>{{ $record->user->name }}</td>
                                                     <td>{{ $record->turnover }}</td>
@@ -107,7 +107,7 @@
                                 </tr>
                                 <tr>
                                     <th>Purchases</th>
-                                    <td>{{ $purchase_count }}</td>
+                                    <td>{{ $purchaseCount }}</td>
                                 </tr>
                             </tbody>
                         </table>

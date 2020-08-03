@@ -1,12 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Collection;
 
+/**
+ * Class User
+ * @package App
+ * @property string $type
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property \DateTime $email_verified_at
+ * @property string $password
+ * @property string $remember_token
+ * @property-read string $name
+ * @property-read string $list_name
+ * @property Collection $addresses
+ * @property Collection $cards
+ * @property Collection $phones
+ * @property Collection $purchases
+ * @method static Builder filteredBy(?string $filter = null) Apply text string filter to query
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -14,7 +34,7 @@ class User extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'type',
@@ -27,7 +47,7 @@ class User extends Authenticatable
     /**
      * The attributes that should be hidden for arrays.
      *
-     * @var array
+     * @var string[]
      */
     protected $hidden = [
         'password',
@@ -37,7 +57,7 @@ class User extends Authenticatable
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var string[]
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
@@ -48,13 +68,12 @@ class User extends Authenticatable
      * Apply text string filter to query
      *
      * @param Builder $query
-     * @param string $filter optional
+     * @param null|string $filter optional
      * @return Builder
      */
-    public function scopeFilteredBy(Builder $query, string $filter = null)
+    public function scopeFilteredBy(Builder $query, ?string $filter = null)
     {
         if (!empty($filter)) {
-
             $query
 
                 // Check if normal full name starts with filter string
@@ -64,17 +83,28 @@ class User extends Authenticatable
                 ->orWhere('list_name', 'like', $filter . '%')
 
                 // Check if card number starts with filter string
-                ->orWhereIn('id', function($query) use (&$filter) {
-                    $query
-                        ->select('user_id')
-                        ->from(with(new Card)->getTable())
-                        ->where('number', 'like', $filter . '%')
-                    ;
-                })
-            ;
+                ->orWhereIn(
+                    'id',
+                    function ($query) use (&$filter) {
+                        $query
+                            ->select('user_id')
+                            ->from(with(new Card)->getTable())
+                            ->where('number', 'like', $filter . '%');
+                    }
+                );
         }
 
         return $query;
+    }
+
+    /**
+     * Check if user is admin
+     *
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->type === 'admin';
     }
 
     /**
@@ -108,5 +138,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(Purchase::class);
     }
-
 }
+

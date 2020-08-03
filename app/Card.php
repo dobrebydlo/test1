@@ -1,15 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
+/**
+ * Class Card
+ * @package App
+ * @property string $number
+ * @property int $user_id
+ * @property int $type_id
+ * @property User $user
+ * @property Collection $purchases
+ * @property CardType $type
+ */
 class Card extends Model
 {
-
+    /**
+     * @var bool
+     */
     public $incrementing = false;
 
+    /**
+     * @var string
+     */
     protected $primaryKey = 'number';
+
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'number',
         'user_id',

@@ -1,10 +1,15 @@
 <?php
 
 namespace Seeds;
+
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class AddressSeeder
+ * @package Seeds
+ */
 class AddressSeeder extends Seeder
 {
     /**
@@ -17,9 +22,11 @@ class AddressSeeder extends Seeder
         $faker = Factory::create();
 
         for ($i = 0; $i < 200; $i++) {
-            DB::table('addresses')->insert([
-                'street' => $faker->address,
-            ]);
+            DB::table('addresses')->insert(
+                [
+                    'street' => $faker->address,
+                ]
+            );
         }
     }
 }

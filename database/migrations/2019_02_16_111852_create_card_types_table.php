@@ -13,10 +13,13 @@ class CreateCardTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('card_types', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-        });
+        Schema::create(
+            'card_types',
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name');
+            }
+        );
     }
 
     /**

@@ -14,11 +14,14 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->char('email', 255)->index();
-            $table->char('token', 255);
-            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-        });
+        Schema::create(
+            'password_resets',
+            function (Blueprint $table) {
+                $table->char('email', 255)->index();
+                $table->char('token', 255);
+                $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            }
+        );
     }
 
     /**

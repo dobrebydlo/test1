@@ -14,14 +14,19 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
-            $table->increments('id');
-            $table->decimal('price', '8', '2')->unsigned()->default(0);
-            $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->nullable();
-            $table->dateTime('deleted_at')->nullable();
-            $table->string('name')->nullable();
-        });
+        Schema::create(
+            'items',
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->decimal('price', '8', '2')->unsigned()->default(0);
+                $table->dateTime('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+                $table->dateTime('updated_at')->default(
+                    DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP')
+                )->nullable();
+                $table->dateTime('deleted_at')->nullable();
+                $table->string('name')->nullable();
+            }
+        );
     }
 
     /**
