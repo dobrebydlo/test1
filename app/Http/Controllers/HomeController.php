@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Card;
 use App\Purchase;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -68,13 +69,16 @@ class HomeController extends Controller
         // Assigned card count
         $assignedCardCount = Card::query()->whereNotNull('user_id')->count();
 
+        // Last purchase date to calculate 'the last 30 days' period
+        $lastPurchaseDate = Carbon::parse(Purchase::query()->max('created_at'));
+
         // Top 10 customers by turnover
         $turnoverTop = Purchase
             ::with('user')
             ->join('item_purchase', 'item_purchase.purchase_id', 'purchases.id')
             ->groupBy(['user_id'])
             ->select(['user_id', DB::raw('sum(`amount`) as `turnover`')])
-            ->where('created_at', '>', today()->subDays(30))
+            ->where('created_at', '>', $lastPurchaseDate->subDays(30))
             ->orderBy('turnover', 'desc')
             ->take(10)
             ->get();
