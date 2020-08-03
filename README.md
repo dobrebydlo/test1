@@ -36,7 +36,7 @@ Create a database structure and core parts of a simple application for customer 
 1. Clone the repo
 2. Create .env file in project root folder and fill DB params (use .env.example)
 3. Keep APP_ENV=local and APP_DEBUG=true to have DebugBar enabled
-4. Run composer update (Laravel depends on a number of libraries)
+4. Run composer install (Laravel depends on a number of libraries)
 5. Run php artisan key:generate (the app won't work without a key)
 6. Run php artisan migrate --seed (create database structure and seed the models, seeding will take some time)
 7. Make sure the folders bootstrap/cache, storage, storage/* are writable by php
@@ -70,9 +70,9 @@ Create a database structure and core parts of a simple application for customer 
 15. Added automatically generated EER Diagram.
 16. Wrote this detailed list.
 17. Made some more changes and fixes.
-18. Suddenly realized that one purchase may contain more than one kind of items.
-19. Solved the problem.
-20. Finally, fixed the turnover top calculation logic.
+18. Suddenly realized that one purchase may contain more than one kind of items, solved the problem.
+19. Fixed the turnover top calculation logic.
+20. Refactored to comply with PSR-12
 
 ## Feedback from potential employer
 

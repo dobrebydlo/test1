@@ -6,7 +6,6 @@
 /vendor
 /.idea
 .env
-/composer.lock
 .git-rewrite
 *.sublime-workspace
 *.sublime-project
